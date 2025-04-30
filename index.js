@@ -1,11 +1,11 @@
 require("dotenv").config();
-const authRoutes = require("./routes/Auth"); // use capital A to match file name
-server.use("/api/auth", authRoutes);
 
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const { connectToDB } = require("./database/db");
+
 const authRoutes = require("./routes/Auth");
 const productRoutes = require("./routes/Product");
 const orderRoutes = require("./routes/Order");
@@ -16,7 +16,6 @@ const userRoutes = require("./routes/User");
 const addressRoutes = require("./routes/Address");
 const reviewRoutes = require("./routes/Review");
 const wishlistRoutes = require("./routes/Wishlist");
-const { connectToDB } = require("./database/db");
 
 // Initialize server
 const server = express();
@@ -38,16 +37,16 @@ server.use(cookieParser());
 server.use(morgan("tiny"));
 
 // Route middlewares
-server.use("/auth", authRoutes);
-server.use("/users", userRoutes);
-server.use("/products", productRoutes);
-server.use("/orders", orderRoutes);
-server.use("/cart", cartRoutes);
-server.use("/brands", brandRoutes);
-server.use("/categories", categoryRoutes);
-server.use("/address", addressRoutes);
-server.use("/reviews", reviewRoutes);
-server.use("/wishlist", wishlistRoutes);
+server.use("/api/auth", authRoutes);
+server.use("/api/users", userRoutes);
+server.use("/api/products", productRoutes);
+server.use("/api/orders", orderRoutes);
+server.use("/api/cart", cartRoutes);
+server.use("/api/brands", brandRoutes);
+server.use("/api/categories", categoryRoutes);
+server.use("/api/address", addressRoutes);
+server.use("/api/reviews", reviewRoutes);
+server.use("/api/wishlist", wishlistRoutes);
 
 // Root route
 server.get("/", (req, res) => {
